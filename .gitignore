@@ -1,3 +1,6 @@
+# Very important to ignore as session_id cookie can be cached
+.cached_input
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
