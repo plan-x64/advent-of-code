@@ -1,7 +1,7 @@
 import datautils
 
 
-def _sum_generator(data):
+def sum_generator(data):
     current_sum = 0
     for line in data.split('\n'):
         if line == '':
@@ -16,6 +16,6 @@ if __name__ == "__main__":
     url = "https://adventofcode.com/2022/day/1/input"
     input_data = datautils.read_input_data(url)
 
-    sorted_sums = sorted([x for x in _sum_generator(input_data)])
+    sorted_sums = sorted([x for x in sum_generator(input_data)])
 
     print("({},  {})".format(sorted_sums[-1], sum(sorted_sums[-3:])))
