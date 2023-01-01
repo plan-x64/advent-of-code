@@ -16,6 +16,7 @@ def full_overlap(first, second):
 def partial_overlap(first, second):
     return len(first.intersection(second)) > 0
 
+
 if __name__ == "__main__":
     url = "https://adventofcode.com/2022/day/4/input"
     lines = datautils.read_input_data(url).splitlines()
