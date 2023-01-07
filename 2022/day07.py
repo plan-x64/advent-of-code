@@ -33,3 +33,4 @@ if __name__ == "__main__":
     pt1 = sum(itertools.takewhile(lambda x: x < 100000, sizes))
     pt2 = next(itertools.dropwhile(lambda x: x < (sizes[-1] - 40000000), sizes))
     print("({},  {})".format(pt1, pt2))
+    
