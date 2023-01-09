@@ -36,23 +36,19 @@ def max_score(grid):
 
 
 def sight_line(height, line):
-
     count = 0
     for val in line:
         count += 1
         if val >= height:
             break
-
     return count
 
 
 def visible(trees):
     maxes = [0]
-
     for i in range(len(trees)):
         if trees[i] > trees[maxes[-1]]:
             maxes.append(i)
-
     return maxes
 
 
