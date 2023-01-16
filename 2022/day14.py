@@ -1,7 +1,6 @@
-import time
+import itertools
 
 import datautils
-import itertools
 
 
 def parse_input(data):
@@ -20,29 +19,53 @@ def pt1(rocks):
     start = (500, 0)
     bottom = max([y for (_, y) in rocks])
     sand = set()
-
+    obstacles = set(rocks)
     while True:
-        result = drop(start, rocks.union(sand), bottom)
+        result = drop(start, lambda p: p in obstacles, bottom)
         if result is not None:
             sand.add(result)
+            obstacles.add(result)
         else:
-            graph(rocks, sand)
-            return len(sand)
+            break
+
+    # graph(rocks, sand)
+    return len(sand)
 
 
-def drop(pos, obstacles, bottom):
+def pt2(rocks):
+    start = (500, 0)
+    bottom = max([y for (_, y) in rocks]) + 2
+    sand = set()
+    obstacles = set(rocks)
+    while (500, 0) not in sand:
+        result = drop(start, lambda p: pt2_collision(p, obstacles, bottom), bottom)
+        if result is not None:
+            sand.add(result)
+            obstacles.add(result)
+        else:
+            break
+
+    # graph(rocks, sand)
+    return len(sand)
+
+
+def pt2_collision(pos, obstacles, bottom):
     (x, y) = pos
-    #print("pos={}, bottom={}".format(pos, bottom))
+    return (pos in obstacles) or (y == bottom)
+
+
+def drop(pos, collision, bottom):
+    (x, y) = pos
 
     if y > bottom:
         return None
 
-    if (x, y+1) not in obstacles:
-        return drop((x, y+1), obstacles, bottom)
-    elif (x-1, y+1) not in obstacles:
-        return drop((x-1, y+1), obstacles, bottom)
-    elif (x+1, y+1) not in obstacles:
-        return drop((x+1, y+1), obstacles, bottom)
+    if not collision((x, y+1)):
+        return drop((x, y+1), collision, bottom)
+    elif not collision((x-1, y+1)):
+        return drop((x-1, y+1), collision, bottom)
+    elif not collision((x+1, y+1)):
+        return drop((x+1, y+1), collision, bottom)
     else:
         return x, y
 
@@ -74,4 +97,4 @@ if __name__ == "__main__":
     url = "https://adventofcode.com/2022/day/14/input"
     input_data = datautils.read_input_data(url)
 
-    print("({},  {})".format(pt1(parse_input(input_data)), None))
+    print("({},  {})".format(pt1(parse_input(input_data)), pt2(parse_input(input_data))))
