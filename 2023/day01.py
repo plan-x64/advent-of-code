@@ -1,12 +1,12 @@
 def get_input():
-    return [line for line in open('.cached_input/2023_01').read().splitlines()]
+    return open('.cached_input/2023_01').read().splitlines()
 
 
 def first_num(line, replacements):
     for i in range(len(line)):
-        for k, v in replacements:
-            if line[i:].startswith(v):
-                return k
+        for num, item in replacements:
+            if line[i:].startswith(item):
+                return num
 
 
 def calibrate(line, replacements):
