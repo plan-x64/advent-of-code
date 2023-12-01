@@ -2,9 +2,9 @@ def get_input():
     return [line for line in open('.cached_input/2023_01').read().splitlines()]
 
 
-def first_num(line, table):
+def first_num(line, replacements):
     for i in range(len(line)):
-        for k, v in table:
+        for k, v in replacements:
             if line[i:].startswith(v):
                 return k
 
